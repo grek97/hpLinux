@@ -1,0 +1,34 @@
+1) Прежде чем приступим к самой установке самого драйвера, установим след. программы:
+headers, git
+
+  1.1) sudo pacman -S linux54-headers (индивидуальное ядро например 54  в моем случае
+  ОС manjaro, для других ОС установка заголовков другая)
+
+  1.2) sudo pacman -S git (в случае с linux и MacOS git н из коробки, 
+  но на всякий случай желательно проверить) 
+
+2) Перезагружаемся 
+
+3) В ~/ директории создаеи директорию, название по желанию:
+  1) mkdir Driver
+  2) cd Driver 
+  
+  Клонируем репу
+  3) git clone -b extended --single-branch https://github.com/lwfinger/rtlwifi_new.gi t
+
+  Переходим в клон репы 
+  4) cd rtlwifi_new
+
+
+  5) sudo pacman -S dkms 
+
+  Пункты 7 и 8 могут долго устанавливаться -это нормально, наберитесь терпения 
+
+  6) sudo dkms add ../rtlwifi_new
+  7) sudo dkms build rtlwifi-new/0.6 
+  8) sudo dkms install rtlwifi-new/0.6
+  9) sudo modprobe -v rtl8723de ant_sel=2
+  10)sudo /bin/sh -c 'echo "options rtl8723de ant_sel=2" >> /etc/modprobe.d/rtl8723de.conf'
+
+На другие модели RTL:
+https://github.com/lwfinger/rtlwifi_new
